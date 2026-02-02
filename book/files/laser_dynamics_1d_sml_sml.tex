@@ -1,0 +1,139 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Laser Oscillators: One-Dimensional Single-Mode Dynamical Models\label{sct:laser_dynamics_1d_sml_sml}}
+
+ \subsection{The Rate Equation Approximation\label{sct:laser_dynamics_1d_sml_rea}}
+
+%  We begin with the single-mode ODEs presented in \sct{laser_resonators_1d_sml}:
+%  \begin{subequations}
+%  \begin{align}
+%    \dot{E}(t) &= -\frac{1}{2\, \tau_\lambda} \left(1 - i\, 2\, \delta \omega_0\, \tau_\lambda \right) E(t) + F(t)\, , \\
+%    \dot{F}(t) &= -\frac{\mathcal{B}(\Omega)}{\tau_\perp} \left[ F(t) - \half\, \Lo\, G(t)\, E(t) \right]\, , \textrm{and} \\
+%    \dot{G}(t) &= -\frac{1}{\tau_\parallel} \left\{ G(t) - G_0(t) + 2\, \widetilde{\kapp\, \operatorname{Re} \left[E^\ast(t)\, F(t) \right] \right\}\, ,
+%  \end{align}
+%  \end{subequations}
+%  where $\tau_\lambda$ is the photon lifetime, $\Omega \equiv (\omega_0 + \delta \omega_0 - \omega_{a b}) \tau_\perp$ is the normalized detuning, and
+%   \begin{equation}
+%   \widetilde{\kapp \equiv
+%   \begin{cases}
+%     1 & \mbox{Unidirectional Ring Laser (URL)}, \\
+%     2 & \mbox{Standing-Wave Laser (SWL)}.
+%   \end{cases}
+%   \end{equation}
+ 
+ Let's make a few modifications to the approximate evolution equations given by \eqn{lr1d_epd_dot_sml} to make the numerical simulations more straightforward. We'll adopt the definitions $\rels \equiv \Re[\mathcal{L}(\Omega)]$ and $\imls \equiv \Im[\mathcal{L}(\Omega)]$ from \sct{laser_statics_1d_amp}, express the gain $G(t)$ and the pump $G_0(t)$ in terms of the threshold gain $G_\mathrm{th} = 1/\rels\, \tau_\lambda$, and we'll rescale the macroscopic polarization $F(t)$:
+ \begin{align}
+   H(t) &\equiv \frac{\overline{G}(t)}{G_\mathrm{th}}\, , \textrm{ and} \\
+   F(t) &\longrightarrow \frac{F(t)}{2\, \tau_\lambda}\, .
+ \end{align}
+For convenience, we \emph{choose} $2\, \delta \omega_0\, \tau_\lambda = -\imls / \rels$, which is the value we derived for the CW SML. Then our laser evolution equations become
+\begin{subequations} \label{eqn:la1d_sml_dynamics}
+  \begin{align}
+    \label{eqn:la1d_sml_dynamics_edot} \dot{E}(t) &= \frac{1}{2\, \tau_\lambda} \left\{ -\left[1 + i\, \frac{\imls}{\rels}\right]\, E(t) + F(t) \right\}\, , \\
+    \label{eqn:la1d_sml_dynamics_fdot} \dot{F}(t) &= \frac{\mathcal{B}(\Omega)}{\tau_\perp} \left\{ -F(t) + \left[1 + i\, \frac{\imls}{\rels}\right]\, H(t)\, E(t) \right\}\, , \textrm{and} \\
+    \label{eqn:la1d_sml_dynamics_hdot} \dot{H}(t) &= -\frac{1}{\tau_\parallel} \left\{ H(t) - H_0(t) + \widetilde{\kappa}\, \rels\, \operatorname{Re} \left[E^\ast(t)\, F(t) \right] \right\}\, ,
+  \end{align}
+\end{subequations}
+where $H_0(t) \equiv G_0(t) / G_\mathrm{th}$ is the dimensionless scaled pump. Regardless of the specific form of $\Lo$, note that
+\begin{equation}
+  \label{eqn:ld1d_sml_pulling}
+  1 + i\, \frac{\imls}{\rels} = \frac{2\, \Lo}{\Lo + \mathcal{L}^\ast(\Omega)} \, . 
+\end{equation}
+Implicit in \eqn{la1d_sml_dynamics} is the spatial dependence of the lowest-order eigenmodes developed in \chp{laser_resonators_1d} and used extensively in \chp{laser_statics_1d} to describe single-mode continuous-wave lasers.
+
+Even though \eqn{la1d_sml_dynamics} are pretty complicated (they're nonlinear ODEs), it's still possible to use them to discover simple properties of lasers. For example, using the third equation, let's calculate the "turn-on time" $\tau_0$ of the laser: if $H(0) = 0$ and $E(0) = 0$, then what value of $t_0$ satisfies $H(t_0) = 1$? When $t < t_0$, the laser is below threshold and $E(t < t_0) = 0$. In this case,
+ \begin{equation}
+   \dot{H}(t) = -\frac{1}{\tau_\parallel} \left[ H(t) - H_0(t)\right]\, ,
+ \end{equation}
+ which has the solution
+ \begin{equation}
+   H(t) = H(0)\, e^{-t/\tau_\parallel} + \frac{1}{\tau_\parallel}\, \int_0^t\, d t^\prime\, e^{(t^\prime - t)/\tau_\parallel}\, H_0(t^\prime)\, .
+ \end{equation}
+ If the pump is constant, so that $H_0(t) \equiv H_0$, then
+ \begin{equation}
+   H(t) = H(0)\, e^{-t/\tau_\parallel} + H_0 \left( 1 - e^{-t/\tau_\parallel} \right)
+ \end{equation}
+ Suppose that $H(0) = 0$, and that $H_0 > 1$. Then $H(t_0) = 1$ for
+ \begin{equation}
+   t_0 = \tau_\parallel\, \ln\left(\frac{H_0}{H_0 - 1}\right)\, .
+ \end{equation}
+ In the limit $H_0 \gg 1$, $t_0 \approx \tau_\parallel/H_0$. However, as $H_0 \rightarrow 1$, the turn-on time lengthens to $t_0 \approx \tau_\parallel\, \ln[1/(H_0 - 1)]$.
+ 
+The formal solution to \eqn{la1d_sml_dynamics_fdot} is given by \eqn{fodes_driven_example_soln_int} as
+% \begin{equation}
+%   F(t) = \frac{\mathcal{B}(\Omega)}{\tau_\perp} \left[1 + i\, \frac{\imls}{\rels}\right] \int_{-\infty}^t\, d t^\prime\, e^{\mathcal{B}(\Omega)\, (t^\prime - t)/\tau_\perp}\, H\left(t^\prime\right) E\left(t^\prime\right)\, ,
+% \end{equation}
+%  where we've assumed that $F(-\infty) = 0$. (Try it!) If $\tau_\perp \ll 1$, then the exponential factor in the integral is very small unless $t^\prime \rightarrow t$. This suggests that we can write $H\left(t^\prime\right) E\left(t^\prime\right)$ as the Taylor series
+%  \begin{equation}
+%    H\left(t^\prime\right) E\left(t^\prime\right) = \sum_{m = 0}^\infty\, \frac{\left(t^\prime - t\right)^m}{m!}\, \frac{d^m}{d t^m}\left[H(t)\, E(t)\right]\, .
+%  \end{equation}
+%  We note that
+% \begin{equation}
+%   \begin{split}
+%     \frac{1}{m!}\,  \int_{-\infty}^t\, \frac{d t^\prime}{\tau_\perp}\, e^{\mathcal{B}(\Omega)\, (t^\prime - t)/\tau_\perp}\, \left(t^\prime - t\right)^m &= \frac{\left(-\tau_\perp\right)^m}{m!}\, \int_0^\infty\, du\, e^{-\mathcal{B}(\Omega)\,  u}\, u^m \\
+%     &= \frac{1}{\mathcal{B}(\Omega)} \left[-\frac{\tau_\perp}{\mathcal{B}(\Omega)}\right]^m\, ,
+%   \end{split}
+% \end{equation}
+%  and therefore
+ \begin{equation}
+   F(t) = \left[1 + i\, \frac{\imls}{\rels}\right] \sum_{m = 0}^\infty \left(-\frac{\tau_\perp}{\mathcal{B}(\Omega)}\right)^m\, \frac{d^m}{d t^m}\left[H(t)\, E(t)\right]\, .
+ \end{equation}
+ Simply stated, the Rate Equation Approximation (REA) assumes that $\tau_\perp$ is small enough that we can neglect all the terms in the Taylor series with $m > 0$. In this case,
+ \begin{equation}
+   F(t) = \left[1 + i\, \frac{\imls}{\rels}\right] H(t)\, E(t)\, ,
+ \end{equation}
+ and
+\begin{align}
+  \dot{E}(t) &= \frac{1}{2\, \tau_\lambda} \left[1 + i\, \frac{\imls}{\rels}\right] \left[H(t) - 1\right]\, E(t)\, , \textrm{and} \\
+  \dot{H}(t) &= \frac{1}{\tau_\parallel} \left\{ H_0(t) - \left[ 1 + \widetilde{\kappa}\, \rels\, |E(t)|^2 \right]\, H(t) \right\}\, .
+\end{align}
+ If the REA is valid, then the difference between the phases of $F(t)$ and $E(t)$ is just the constant value
+\begin{equation}
+  \phi_F - \phi_E = -i\, \ln\left\{ \frac{1 + i\, \imls / \rels}{\sqrt{1 + [\imls / \rels]^2}} \right\}\, .
+\end{equation}
+In this case, the phase of $E(t)$ is not interesting, so instead we calculate the derivative of the laser intensity $I(t) \equiv |E(t)|^2$. Then
+\begin{align}
+  \dot{I}(t) &= \frac{1}{\tau_\lambda} \left[H(t) - 1\right]\, I(t)\, , \textrm{and} \\
+  \dot{H}(t) &= \frac{1}{\tau_\parallel} \left\{ H_0(t) - \left[ 1 + \widetilde{\kappa}\, \rels\, I(t) \right]\, H(t) \right\}\, .
+\end{align}
+ These simplified equations are the mainstay of almost all laser models in electrical engineering.
+
+ \subsection{Gain-Switched Lasers\label{sct:laser_dynamics_1d_sml_gsl}}
+ 
+ \subsection{Q-Switched Lasers\label{sct:laser_dynamics_1d_sml_qsl}}
+
+% \subsection{Standing-Wave Lasers\label{sct:la1d_swl}}
+%
+%
+% \begin{equation} \label{eqn:la1d_gdot_nodims_swl}
+%\dot{G}(t) = -\gamma_\parallel \tau_g \left\{ \left[ G(t) - \overbar{G}(t) \right] - 2 \Im \left[E^\ast(t)\, P(t) \right] \right\} .
+% \end{equation}
+%This additional factor of $2$ \emph{reduces} the saturation intensity by half, and therefore the output intensity by the same factor.
+%
+%
+% \subsection{Phenomenological Model of Spontaneous Emission\label{sct:la1d_sel}}
+%Energy density and intensity of a single photon in a cavity with volume $\mathcal{V}$:
+% \begin{subequations} \label{eqn:la1d_se_es}
+% \begin{align}
+% \label{eqn:la1d_se_ed} u &\approx \frac{\hslash\, \omega_0}{\mathcal{V}} , \nd \\
+% \label{eqn:la1d_se_in} \left| S \right| &\approx v_g\, u = \frac{v_g\, \sigma\wn}{\gamma_\parallel\, \mathcal{V}}\, I_s ,
+% \end{align}
+% \end{subequations}
+%where we have applied the definition of the saturation intensity given by \eqn{la1d_isat_def}. This suggests that we represent spontaneous emission in our volume-averaged dynamical model by modifying the equation of motion for the rescaled macroscopic polarization to read
+% \begin{equation} \label{eqn:la1d_pdot_nodims_se}
+%\dot{P}(t) = -\gamma_\perp \tau_g \left\{ \left( 1 - i\, \Omega \right) P(t) + i\, G(t) \left[E(t) + \mathcal{E}(t)\right]\right\} ,
+% \end{equation}
+%where
+% \begin{equation}\label{eqn:la1d_se_edef}
+%\mathcal{E}(t) \equiv \sqrt{\frac{v_g\, \sigma\wn}{\gamma_\parallel\, \mathcal{V}}}\, e^{i\, \phi(t)} ,
+% \end{equation}
+%and $\phi(t)$ is a uniform random number on the interval $\{0, 2\, \pi\}$. 

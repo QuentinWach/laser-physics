@@ -1,1 +1,2 @@
 {"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\QThis approach eliminates \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q from the of mflt_master_eqn, but there is a corresponding subtlety on the .\\E$"}
+{"rule":"ADVERB_OR_HYPHENATED_ADJECTIVE","sentence":"^\\QThen our laser evolution equations become \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Dummy\\+|Dummy's\\+)[0-9]+\\Q, where \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Dummy\\+|Dummy's\\+)[0-9]+\\Q is the dimensionless scaled pump.\\E$"}

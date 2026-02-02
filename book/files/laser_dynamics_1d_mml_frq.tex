@@ -17,49 +17,73 @@ E_q(t) \equiv A_q(t)\, e^{-i\, \phi_q(t)} .
  \end{equation}
 Following \sct{laser_statics_1d_approx}, we assume that $\dot{A}_q(t) = 0$ and $\dot{\phi}_q(t) = 0$, so that application of \eqn{mml_edot_temp} gives
  \begin{equation} \label{eqn:mml_1d_dwq}
-\delta \omega_q = -\frac{1}{2\, \tau_p}\, \frac{\Im[f_q]}{\Re[f_q]}\, .
+\delta \omega_q = -\frac{1}{2\, \tau_\lambda}\, \frac{\Im[f_q]}{\Re[f_q]}\, ,
  \end{equation}
 where $f_q(t) \equiv e^{i\, \phi_q(t)} F_q(t)$.
 %Substituting this expression into \eqn{mml_edot}, and then separating the result into real and imaginary parts, we find
 % \begin{subequations}\label{eqn:mml_1d_cq_phiq_sep}
 % \begin{align}
-% \label{eqn:mml_1d_cq_dot} \dot{c}_q(t) &= -\frac{1}{2\, \tau_p}\, c_q(t) + \Re\left[f_q(t)\right] , \nd \\
+% \label{eqn:mml_1d_cq_dot} \dot{c}_q(t) &= -\frac{1}{2\, \tau_\lambda}\, c_q(t) + \Re\left[f_q(t)\right] , \nd \\
 % \label{eqn:mml_1d_phiq_dot} \dot{\phi}_q(t) &= \delta \omega_q +  \frac{\Im\left[f_q(t)\right]}{c_q(t)},
 % \end{align}
 % \end{subequations}
 %Our goal is to solve \eqn{mml_edot} in the (approximately) steady state for each amplitude $E_q(t)$. In this case, we should obtain both $\dot{c}_q(t) \approx 0$ and a small --- and ideally constant --- value of $\dot{\phi}_q(t)$. In \sct{laser_statics_1d_approx}, we found that $\Im[f_q(t)] = \Omega_q\, \Re[f_q(t)]$ in the single-mode case, and
-In \sct{laser_statics_1d_approx}, we found that $\Im[f_0]/\Re[f_0] = \Im[\mathcal{L}_0]/\Re[\mathcal{L}_0]$, where $\mathcal{L}_0$ is the lineshape function, and we assume that this condition is approximately valid in the multimode case. That is,
- \begin{equation}
-\frac{\Im[f_q]}{\Re[f_q]} \approx \frac{\Im[\mathcal{L}_q]}{\Re[\mathcal{L}_q]} = \Omega_q\, ,
- \end{equation}
-where in the Lorentzian case
- \begin{equation} \label{eqn:mml_lmc_q_def}
-\mathcal{L}_q \equiv \frac{1}{1 - i\, \Omega_q}\, .
- \end{equation}
+In \sct{laser_statics_1d_approx}, we found that $\Im[f_0]/\Re[f_0] = \Im[\Lo]/\Re[\Lo]$, where $\Lo$ is the lineshape function, and we assume as a starting point that this condition is approximately valid in the multimode case. That is,
+\begin{equation}
+    \frac{\Im[f_q]}{\Re[f_q]} \approx \frac{\Im[\Lq]}{\Re[\Lq]} = \frac{\imlq}{\relq}\, ,
+\end{equation}
+where now $\relq = \Re[\Lq]$ and $\imlq = \Im[\Lq]$. Therefore, choosing
+\begin{equation}
+    \delta \omega_q \equiv -\frac{1}{2\, \tau_\lambda}\, \frac{\imlq}{\relq}
+\end{equation}
+should give $\dot{\phi}_q(t) \approx 0$ when $\dot{A}_q(t) = 0$. If $\omega_0 = \omega_{a b}$, then
+\begin{equation} \label{eqn:mml_1d_omega_q_def}
+    \Omega_q \longrightarrow \Omega_q + \delta \omega_q\, \tau_\perp\, ,
+\end{equation}
+where $\Omega_q = 2\, q\, \pi\, \tau_\perp$, and we can solve for $\delta \omega_q$ to obtain
+\begin{equation} \label{eqn:mml_1d_freq_pull_sol}
+    \delta \omega_q \approx -\frac{r(\Omega_q)}{2\, \tau_\lambda + \tau_\perp\, r^\prime(\Omega_q)}\, ,
+\end{equation}
+where
+\begin{subequations}
+    \begin{align}
+        r(\Omega_q) &\equiv \frac{\imlq}{\relq}\, , \nd \\
+        r^\prime(\Omega_q) &\equiv \frac{d\, r(\Omega)}{d \Omega}\bigg|_{\Omega = \Omega_q}\, .
+    \end{align}
+\end{subequations}
+Substituting \eqn{mml_1d_freq_pull_sol} into \eqn{mml_edot_temp} and simplifying, we find
+\begin{equation} \label{eqn:mml_1d_deq_dt_fp}
+    \begin{split}
+        \dot{E}_q(t) &= -\frac{1}{2 \tau_\lambda} \left( 1 - i\, 2\, \delta \omega_q\, \tau_\lambda \right) E_q(t) + F_q(t) \\
+        &= -\frac{1}{2 \tau_\lambda} \left[ 1 + i\, \frac{r(\Omega_q)}{1 + (\tau_\perp/2\, \tau_\lambda)\, r^\prime(\Omega_q)} \right] E_q(t) + F_q(t) .
+    \end{split}
+\end{equation}
+
+In the Lorentzian case, where
+\begin{equation} \label{eqn:mml_lmc_q_def}
+    \Lq \equiv \frac{1}{1 - i\, \Omega_q}\, ,
+\end{equation}
 %We note that in single-frequency laser theory, using \eqn{mml_1d_fq} to obtain $f_q(t)$ for the single mode $q$, we find
 % \begin{equation}
 %f_q(t) = \frac{\left(1 + \Omega_q^2\right) g_q}{1 + \Omega_q^2 + 2 c_q^2(t)}\, c_q(t) ,
 % \end{equation}
 %so that $\Im\left[f_q(t)\right] = 0$.
-%In steady-state, then, $c_q(t) \approx 2\, \tau_p\, \Re[f_q(t)]$, and \eqn{mml_1d_phiq_dot} becomes
+%In steady-state, then, $c_q(t) \approx 2\, \tau_\lambda\, \Re[f_q(t)]$, and \eqn{mml_1d_phiq_dot} becomes
 % \begin{equation} \label{eqn:mml_1d_phiq_dot_approx}
-%\dot{\phi}_q(t) \approx \delta \omega_q + \frac{\Omega_q}{2\, \tau_p}\, .
+%\dot{\phi}_q(t) \approx \delta \omega_q + \frac{\Omega_q}{2\, \tau_\lambda}\, .
 % \end{equation}
-Therefore, choosing $\delta \omega_q \equiv -\Omega_q/2\, \tau_p$ should give $\dot{\phi}_q(t) \approx 0$ when $\dot{A}_q(t) = 0$. If we assume that $\omega_0 = \omega_{a b}$, then
- \begin{equation} \label{eqn:mml_1d_omega_q_def}
-\Omega_q = \Delta \omega_q\, \tau_\perp = \left(2 q \pi + \delta \omega_q\right) \tau_\perp\, ,
- \end{equation}
-and we can solve for $\delta \omega_q$ to obtain
- \begin{subequations}\label{eqn:mml_1d_freq_pull}
- \begin{align}
- \delta \omega_q &= -\frac{\tau_\perp}{2\, \tau_p}\, \frac{2 q \pi}{1 + \tau_\perp/2\, \tau_p}\, , \nd \\
- \Delta \omega_q &= \frac{2 q \pi}{1 + \tau_\perp/2\, \tau_p}\, .
- \end{align}
- \end{subequations}
-Finally, substituting $\delta \omega_q = -\Omega_q/2\, \tau_p$ into \eqn{mml_edot_temp} and simplifying, we find
- \begin{equation} \label{eqn:mml_1d_deq_dt_fp}
-\dot{E}_q(t) = -\frac{1}{2 \tau_p} \left( 1 + i\, \Omega_q \right) E_q(t) + F_q(t) .
- \end{equation}
+we obtain
+\begin{equation}\label{eqn:mml_1d_freq_pull}
+    \delta \omega_q = -\frac{\tau_\perp}{2\, \tau_\lambda}\, \frac{2 q \pi}{1 + \tau_\perp/2\, \tau_\lambda}\, .
+\end{equation}
+In the more general case, where
+\begin{equation} \label{eqn:mml_1d_omega_q_general}
+    \Lq \equiv \frac{\mathcal{A}}{\mathcal{B} - i\, \Omega_q}\, ,
+\end{equation}
+we find
+\begin{equation}\label{eqn:mml_1d_freq_pull_general}
+    \delta \omega_q = -\frac{\Re\left[\mathcal{A}\left(\mathcal{B}^\ast + i\, \Omega_q\right)\right]\, \Im\left[\mathcal{A}\left(\mathcal{B}^\ast + i\, \Omega_q\right)\right]}{2\, \tau_\lambda\, \Re\left[\mathcal{A}\left(\mathcal{B}^\ast + i\, \Omega_q\right)\right]^2 + \tau_\perp\, \left|\mathcal{A}\right|^2\, \Re\left[\mathcal{B}\right]}\, .
+\end{equation}
 
  \subsection{Dispersion\label{sct:laser_dynamics_1d_mml_frq_dis}}
 
@@ -79,9 +103,9 @@ If we keep only those terms proportional to $E_p(t)$ and $\dot{E}_p(t)$, then
 \begin{equation*}
     \sum_{j = 0}^{l} \binom{l}{j}\, (-i\, \Delta \omega_p)^j\, \frac{\partial^{l - j}}{\partial t^{l - j}}\, E_p(t) \approx (-i\, \Delta \omega_p)^l\, E_p(t) + l\, (-i\, \Delta \omega_p)^{l - 1}\, \dot{E}_p(t)\, ,
 \end{equation*}
-and then
+and thus we have
 \begin{equation} \label{eqn:mml_1d_disp_cont}
-    i\, \sum_{l = 2}^\infty \frac{D_l\wn}{l!} \left(i\, \frac{\partial}{\partial t}\right)^l E\zt = i\, \sum_p u_p\z\, e^{-i\, \Delta \omega_p\, t} \left[ \delta D_p\wn\, E_p(t) + i\, \delta \tau_p\wn\, \dot{E}_p(t) \right]\, ,
+    i\, \sum_{l = 2}^\infty \frac{D_l\wn}{l!} \left(i\, \frac{\partial}{\partial t}\right)^l E\zt = i\, \sum_p u_p\z\, e^{-i\, \Delta \omega_p\, t} \left[ \delta D_p\wn\, E_p(t) + i\, \delta \tau_\lambda\wn\, \dot{E}_p(t) \right]\, ,
 \end{equation}
 where
 \begin{subequations} \label{eqn:mml_1d_delta_dt_q_def}
@@ -89,7 +113,7 @@ where
         \label{eqn:mml_1d_delta_d_q_def}
         \delta D_p\wn &\equiv \sum_{l = 2}^\infty \frac{(2 p \pi)^l}{l!}\, D_l\wn\, , \\
         \label{eqn:mml_1d_delta_tau_q_def}
-        \delta \tau_p\wn &\equiv \sum_{l = 2}^\infty \frac{(2 p \pi)^{l - 1}}{(l - 1)!}\, D_l\wn\, ,
+        \delta \tau_\lambda\wn &\equiv \sum_{l = 2}^\infty \frac{(2 p \pi)^{l - 1}}{(l - 1)!}\, D_l\wn\, ,
     \end{align}
 \end{subequations}
 and we've used \eqn{mml_1d_delta_w_q_def} to make the approximation $\Delta \omega_p \approx 2 p \pi$.
@@ -121,20 +145,20 @@ and we've used \eqn{mml_1d_delta_w_q_def} to make the approximation $\Delta \ome
 %  \end{equation}
 % where we've used \eqn{mml_1d_delta_w_q_def} to make the approximation $\Delta \omega_q \approx 2 q \pi$ in the exponentiated coefficients. Substituting \eqn{mml_1d_e_field_w} and \eqn{mml_1d_eq_svea_w} into \eqn{mml_1d_weq_w_norm}, and then applying \eqn{laser_resonator_1d_u_hlde} in the form
 %  \begin{equation} \label{eqn:mml_1d_u_hlde}
-% \ddz u_q\z = i\, \left(\Delta \omega_q - \delta \omega_q\right) u_q\z + \left[\frac{1}{2\, \tau_p} - \half\, \alpha\wn\right] u_q\z\, ,
+% \ddz u_q\z = i\, \left(\Delta \omega_q - \delta \omega_q\right) u_q\z + \left[\frac{1}{2\, \tau_\lambda} - \half\, \alpha\wn\right] u_q\z\, ,
 %  \end{equation}
 % we obtain
 % % \begin{multline}
-% %\sum_l u_l\z \left[ 1 + \delta \tau_l\wn \right] (-i \nu)\, E_l(\nu) = \\ \sum_l u_l\z \left\{-\frac{1}{2\, \tau_p} + i \left[ \delta \omega_l + \sum_{m = 2}^\infty \frac{(2 l \pi)^m}{m!}\, D_m\wn \right] \right\} E_l(\nu) + F\zw\, ,
+% %\sum_l u_l\z \left[ 1 + \delta \tau_l\wn \right] (-i \nu)\, E_l(\nu) = \\ \sum_l u_l\z \left\{-\frac{1}{2\, \tau_\lambda} + i \left[ \delta \omega_l + \sum_{m = 2}^\infty \frac{(2 l \pi)^m}{m!}\, D_m\wn \right] \right\} E_l(\nu) + F\zw\, ,
 % % \end{multline}
 %  \begin{multline} \label{eqn:mml_1d_nu_e}
-% \sum_l u_l\z \left[ 1 + \delta \tau_l\wn \right] (-i \nu)\, E_l(\nu) = \\ \sum_l u_l\z \left\{-\frac{1}{2 \tau_p} \left( 1 + i\, \Omega_l \right) + i\, \delta D_l\wn \right\} E_l(\nu) + F\zw\, ,
+% \sum_l u_l\z \left[ 1 + \delta \tau_l\wn \right] (-i \nu)\, E_l(\nu) = \\ \sum_l u_l\z \left\{-\frac{1}{2 \tau_\lambda} \left( 1 + i\, \Omega_l \right) + i\, \delta D_l\wn \right\} E_l(\nu) + F\zw\, ,
 %  \end{multline}
-% where we have chosen $\delta \omega_l = -\Omega_l/2\, \tau_p$ to incorporate frequency pulling,
+% where we have chosen $\delta \omega_l = -\Omega_l/2\, \tau_\lambda$ to incorporate frequency pulling,
 
 We follow the approach we used to derive \eqn{mml_edot_temp}, and multiply both sides of \eqn{mml_1d_disp_cont} by $v_q\z$ and then integrate the result over the cavity length. Collecting the resulting dispersion terms allow us to obtain the updated field coefficient equation of motion
 \begin{equation} \label{eqn:mml_1d_deq_dt_final}
-    \dot{E}_q(t) = \frac{1}{1 + \delta \tau_q\wn} \left\{ \left[-\frac{1}{2\, \tau_p} \left( 1 + i\, \Omega_q \right) + i\, \delta D_q\wn\right] E_q(t) + F_q(t) \right\}\, ,
+    \dot{E}_q(t) = \frac{1}{1 + \delta \tau_q\wn} \left\{ \left[-\frac{1}{2\, \tau_\lambda} \left( 1 - i\, 2\, \delta \omega_q \tau_\lambda \right) + i\, \delta D_q\wn\right] E_q(t) + F_q(t) \right\}\, ,
 \end{equation}
 where $F_q(t)$ is again given by \eqn{mml_fq_sol}. We see two primary effects of dispersion. First, there is an additional frequency shift for each mode that increases (in magnitude) nonlinearly with mode number $q$. Second, the group round-trip time is slightly different for each mode, changing with $q$ by a factor of $1 + \delta \tau_q\wn$.
    
@@ -144,20 +168,20 @@ where $F_q(t)$ is again given by \eqn{mml_fq_sol}. We see two primary effects of
 %  \end{equation}
 % and we apply this transform to \eqn{mml_1d_nu_e} to obtain the updated field coefficient equation of motion
 % \begin{equation}
-%\left[ 1 + \delta \tau_q\wn \right] \dot{E}_q(t) = \\ \left\{-\frac{1}{2\, \tau_p} + i \left[ \delta \omega_q + \sum_{m = 2}^\infty \frac{(2 q \pi)^m}{m!}\, D_m\wn \right] \right\} E_q(t) + F_q(t)\, ,
+%\left[ 1 + \delta \tau_q\wn \right] \dot{E}_q(t) = \\ \left\{-\frac{1}{2\, \tau_\lambda} + i \left[ \delta \omega_q + \sum_{m = 2}^\infty \frac{(2 q \pi)^m}{m!}\, D_m\wn \right] \right\} E_q(t) + F_q(t)\, ,
 % \end{equation}
 % \begin{equation} \label{eqn:mml_1d_deqdt}
-%\left[ 1 + \delta \tau_q\wn \right] \dot{E}_q(t) = \\ \left\{-\frac{1}{2 \tau_p} \left( 1 + i\, \Omega_q \right) + i\, \delta D_q\wn \right\} E_q(t) + F_q(t)\, ,
+%\left[ 1 + \delta \tau_q\wn \right] \dot{E}_q(t) = \\ \left\{-\frac{1}{2 \tau_\lambda} \left( 1 + i\, \Omega_q \right) + i\, \delta D_q\wn \right\} E_q(t) + F_q(t)\, ,
 % \end{equation}
 
 %Following the same procedure leading to \eqn{mml_1d_phiq_dot_approx}, we find
 % \begin{equation}%\label{eqn}
-%\delta \omega_q + \sum_{m = 2}^\infty \frac{D_m\wn}{m!}\, (2 q \pi)^m = -\frac{\Omega_q}{2\, \tau_p}\, ,
+%\delta \omega_q + \sum_{m = 2}^\infty \frac{D_m\wn}{m!}\, (2 q \pi)^m = -\frac{\Omega_q}{2\, \tau_\lambda}\, ,
 % \end{equation}
 %which we can solve using \eqn{mml_1d_omega_q_def} for $\delta \omega_q$. Therefore, the total frequency shift and frequency displacement for mode $q$ due to mode pulling and dispersion is given respectively by
 % \begin{align}
-%\label{eqn:mml_1d_freq_shift} \delta \omega_q &= -\frac{1}{1 + \tau_\perp/2\, \tau_p} \left[\frac{\tau_\perp}{2\, \tau_p}\, (2 q \pi) + \sum_{m = 2}^\infty \frac{(2 q \pi)^m}{m!}\, D_m\wn \right]\, , \nd \\
-%\label{eqn:mml_1d_freq_disp} \Delta \omega_q &= \frac{1}{1 + \tau_\perp/2\, \tau_p} \left[2 q \pi - \sum_{m = 2}^\infty \frac{(2 q \pi)^m}{m!}\, D_m\wn \right]\, .
+%\label{eqn:mml_1d_freq_shift} \delta \omega_q &= -\frac{1}{1 + \tau_\perp/2\, \tau_\lambda} \left[\frac{\tau_\perp}{2\, \tau_\lambda}\, (2 q \pi) + \sum_{m = 2}^\infty \frac{(2 q \pi)^m}{m!}\, D_m\wn \right]\, , \nd \\
+%\label{eqn:mml_1d_freq_disp} \Delta \omega_q &= \frac{1}{1 + \tau_\perp/2\, \tau_\lambda} \left[2 q \pi - \sum_{m = 2}^\infty \frac{(2 q \pi)^m}{m!}\, D_m\wn \right]\, .
 % \end{align}
 % Collecting results, we have updated our field equation of motion to read
 %Although it is not obvious from the form of \eqn{mml_1d_deq_dt_final}, as the magnitudes of the dispersion coefficients increase, the primary effect will be to change the phase of the nonlinear coupling driving the evolution of each mode.
@@ -166,7 +190,7 @@ where $F_q(t)$ is again given by \eqn{mml_fq_sol}. We see two primary effects of
 % \begin{equation}
 %\mathcal{L}(t)\, \mathbf{E}\zt = \left[ i\, \beta_1\wn \frac{d}{d t} - \frac{\beta_2\wn}{2} \frac{d^2}{d t^2} - i\, \frac{\beta_3\wn}{6} \frac{d^3}{d t^3} \right] \mathbf{E}\zt
 % \end{equation}
-%In \eqn{mml_1d_deq_dt}, we have scaled the time by $\tau_s \equiv 2\, \tau_p$ and divided out a common factor of $\beta_1\wn$. For the moment, let's suppress the factor of $\tau_s$, and for convenience scale the time by $\tau_g^\parallel$. Then, multiplying $\mathcal{L}(t)$ through by a factor of $-i \tau_g^\parallel/\beta_1 = -i \tau_g^\parallel v_g = -i L$ (where $L$ is the round-trip physical path length, or twice the physical length of the cavity), we have a scaled dispersion operator and operand given by
+%In \eqn{mml_1d_deq_dt}, we have scaled the time by $\tau_s \equiv 2\, \tau_\lambda$ and divided out a common factor of $\beta_1\wn$. For the moment, let's suppress the factor of $\tau_s$, and for convenience scale the time by $\tau_g^\parallel$. Then, multiplying $\mathcal{L}(t)$ through by a factor of $-i \tau_g^\parallel/\beta_1 = -i \tau_g^\parallel v_g = -i L$ (where $L$ is the round-trip physical path length, or twice the physical length of the cavity), we have a scaled dispersion operator and operand given by
 %
 %
 %%keeping only the new second and third order terms, and approximating $\Delta \omega_q t \approx (2 q \pi/\tau_g^\parallel) (\tau_g^\parallel t) = (2 q \pi) t$ in \eqn{mml_e_field_1d_t}
