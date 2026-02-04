@@ -1,0 +1,198 @@
+\section{One-Dimensional Multi-Mode Laser Evolution Equations\label{sct:laser_dynamics_1d_mml_mbe}}
+
+We begin by developing evolution equations for the complex longitudinal modal amplitudes of unidirectional and standing-wave intracavity laser fields based on the four-level Maxwell-Bloch equations given by \eqn{laser_statics_1d_sml_scaled} and \eqn{cw_sml_ftz_scaled}. We have
+\begin{subequations}\label{eqn:laser_dynamics_1d_mml_scaled}
+  \begin{align}
+    \label{eqn:mml_etz_scaled}
+    \ppt E^\pm\zt \pm \ppz E^\pm\zt &= \left[ i\, \widehat{\mathcal{D}}_0 - \half\, \an \right] E^\pm\zt + F^\pm\zt\, , \\
+    \label{eqn:mml_ftz_scaled} \ppt \widetilde{F}\zt &= -\frac{1}{\tau_\perp} \left[ \mathcal{B}\, \widetilde{F}\zt - \frac{\mathcal{A}}{2}\, \widetilde{G}\zt \widetilde{E}\zt \right]\, , \nd \\
+    \label{eqn:mml_gtz_scaled} \ppt \widetilde{G}\zt &= -\frac{1}{\tau_\parallel} \left\{ \widetilde{G}\zt - \Gn\zt + 2 \Re \left[ \widetilde{E}^\ast\zt \widetilde{F}\zt \right] \right\}\, ,
+  \end{align}
+\end{subequations}
+where $\widehat{\mathcal{D}}_0$ is the differential operator defined by \eqn{cw_sml_disp_op}. Here we will defer the effects of frequency dispersion to \sct{laser_dynamics_1d_mml_frq_dis} by setting $\widehat{\mathcal{D}}_0 = 0$ in \eqn{mml_etz_scaled}.
+
+Our goal will be to develop a set of nonlinear ordinary differential equations representing the time evolution of modal amplitudes of the electromagnetic field. Let's follow an approach similar to that used in \sct{laser_statics_1d_approx} and use the results of \sct{laser_resonators_1d_qnm} to expand $E^\pm\zt$ in terms of the quasi-normal modes of the laser resonator. For example, in the case of the one-dimensional unidirectional ring laser shown in \fig{resonator_1d_ring_gain}, $E^{-}\zt = 0$, and we can write the slowly-varying forward-propagating electric field amplitude as
+\begin{equation}
+  \label{eqn:mml_e_1d_zt_url}
+  E^{+}\zt \equiv \sum_{q = -\infty}^\infty u_q\z\, e^{-i\, \Delta \omega_q\, t}\, E_q(t)\, ,
+\end{equation}
+where $u_q\z$ and the corresponding biorthogonal eigenfunction $v_q\z$ in the range $0 < z < 1$ are given by \eqn{laser_resonator_1d_u_unnorm} and \eqn{laser_resonator_1d_v_unnorm} as
+\begin{subequations}
+  \begin{align}
+    \label{eqn:sml_1d_uq_url} u_q\z &=\mathcal{C}_\mathrm{URL}\, \exp\left[ +\left( i\, 2 q \pi + \ln\frac{1}{\sqrt{R}} \right) z \right]\, , \\
+    \label{eqn:sml_1d_vq_url} v_q\z &=\mathcal{C}^{-1}_\mathrm{URL}\, \exp\left[ -\left( i\, 2 q \pi + \ln\frac{1}{\sqrt{R}} \right) z \right]\, ,
+  \end{align}
+\end{subequations}
+$\mathcal{C}_\mathrm{URL}$ is given by \eqn{laser_resonator_1d_u_norm_url}, and
+\begin{equation}\label{eqn:mml_1d_delta_w_q_def}
+  \Delta \omega_q = 2 q \pi + \delta \omega_q\, ,
+\end{equation}
+consistent with both \eqn{cw_sml_etz_scaled} and \eqn{delta_w_q_def}. We apply the biorthogonality relation given by \eqn{laser_resonator_1d_uv_biortho} to \eqn{mml_etz_scaled} by substituting \eqn{mml_e_1d_zt_url} (with $q \longrightarrow p$) and a similar expression for $F^{+}\zt$; multiplying both sides through by $e^{+i\ \Delta \omega_q\, t}\, v_q\z$; and then integrating the result from $z = 0$ to $z = 1$. We find
+\begin{equation} \label{eqn:mml_edot_temp}
+  \dot{E}_q(t) = \left(-\frac{1}{2 \tau_\lambda} + i\, \delta \omega_q\right) E_q(t) + F_q(t)\, ,
+\end{equation}
+where $\tau_\lambda \equiv 1/\ln[1 / R \exp(-\anb)]$ is the photon lifetime\index{Photon lifetime} given by \eqn{f_fwhm} and $\anb \equiv \int_0^1 dz\, \alpha_0(z)$.
+
+For the one-dimensional standing-wave laser shown in \fig{resonator_1d_sw_gain}, the slowly-varying biorthogonal eigenfunctions are $\mathbf{u}_q\z$ and $\mathbf{v}_q\z$, given by \eqn{laser_resonator_1d_u_sw_vec}, \eqn{laser_resonator_1d_u_sw}, \eqn{laser_resonator_1d_v_sw_vec}, and \eqn{laser_resonator_1d_v_sw}, and the corresponding normalization constant $\mathcal{C}_\mathrm{SWL}$ is given by \eqn{laser_resonator_1d_u_norm_swl}. Then
+\begin{subequations} \label{eqn:sml_1d_uvq_swl}
+  \begin{align}
+    \label{eqn:sml_1d_uq_swl}
+    \mathbf{u}_q\z &\equiv \begin{bmatrix} u^{+}_q\z \\ u^{-}_q\z \end{bmatrix} = \mathcal{C}_\mathrm{SWL} \begin{bmatrix} e^{+\left[ i\, 2 q \pi + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \\ -\frac{1}{\sqrt{R_1}}\, e^{-\left[ i\, 2 q \pi + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \end{bmatrix}\, , \nd \\
+    \label{eqn:sml_1d_vq_swl}
+    \mathbf{v}_q\z &\equiv \begin{bmatrix} v^{+}_q\z \\ v^{-}_q\z \end{bmatrix} = \mathcal{C}^{-1}_\mathrm{SWL} \begin{bmatrix} e^{-\left[ i\, 2 q \pi + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \\ -\sqrt{R_1}\, e^{+\left[ i\, 2 q \pi + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \end{bmatrix}\, ,
+  \end{align}
+\end{subequations}
+where $0 < z < 1/2$ In this case, we apply the biorthogonality relation given by \eqn{laser_resonator_1d_uv_biortho_sw} to \eqn{cw_sml_ez_scaled} by substituting $E^{\pm}\z = \sum_p u^{\pm}_p\z\, \, e^{-i\, \Delta \omega_p\, t}\, E_p(t)$ and $F^{\pm}\z = \sum_p u^{\pm}_p\z\, \, e^{-i\, \Delta \omega_p\, t}\, F_p(t)$; forming the inner product of both sides with $e^{i\, \Delta \omega_q\, t}\, \mathbf{v}_q\z$; and then integrating the result from $z = 0$ to $z = 1/2$. Therefore, \eqn{e0_temp} remains valid for the standing-wave case with $\tau_\lambda \equiv 1 / \ln[1 / R_1 R_2 \exp(-\anb)]$ and $\anb \equiv 2 \int_0^{1/2} dz\, \alpha_0(z)$.
+
+As a general representation of the spatially rapidly-varying fields in both unidirectional ring and standing-wave resonator configurations, we follow \sct{laser_resonators_1d_swl} and write the electric field amplitude function as
+\begin{equation}
+  \label{eqn:mml_e_1d_zt_rv}
+  \widetilde{E}\zt \equiv \sum_{q = -\infty}^\infty \widetilde{u}_q\z\, e^{-i\, \Delta \omega_q\, t}\, E_q(t)\, .
+\end{equation}
+In the unidirectional ring laser case,
+\begin{subequations}
+  \label{eqn:mml_1d_uvq_url}
+  \begin{align}
+    \label{eqn:mml_1d_uq_url} \widetilde{u}_q\z &= u^{+}_q\z\, e^{+i k_0 z}\, , \nd \\
+    \label{eqn:mml_1d_vq_url} \widetilde{v}_q\z &= v^{+}_q\z\, e^{-i k_0 z}\, ,
+  \end{align}
+\end{subequations}
+where $k_0$ is the propagation constant associated with the carrier frequency $\omega_0$. For a standing-wave resonator,
+\begin{subequations}
+  \label{eqn:mml_1d_uvq_swl}
+  \begin{align}
+    \label{eqn:mml_1d_uq_swl} \widetilde{u}_q\z &= u^{+}_q\z\, e^{+i k_0 z} + u^{-}_q\z\, e^{-i k_0 z}\, , \nd \\
+    \label{eqn:mml_1d_vq_swl} \widetilde{v}_q\z &= v^{+}_q\z\, e^{-i k_0 z} + v^{-}_q\z\, e^{+i k_0 z}\, .
+  \end{align}
+\end{subequations}
+We use a similar approach to the expansion of the amplitude of the macroscopic polarization, obtaining for \eqn{mml_ftz_scaled}
+\begin{multline} \label{eqn:mml_ftz_expansion}
+  \sum_p \left[ \dot{F}_p(t) - i\, \Delta \omega_p\, F_p(t) \right] \widetilde{u}_p\z\, e^{-i\, \Delta \omega_p\, t} \\
+  = -\frac{1}{\tau_\perp} \sum_p \left[ \mathcal{B}\, F_p(t) - \half\, \mathcal{A}\, \widetilde{G}\zt\, E_p(t) \right] \widetilde{u}_p\z\, e^{-i\, \Delta \omega_p\, t}\, .
+\end{multline}
+Note that we didn't apply the rate-equation approximation (REA) to \eqn{mml_ftz_scaled}, because a laser operating with $q_\text{max}$ longitudinal modes such that $q_\text{max}\, \Delta \omega_\text{FSR} \gtrsim 1 / \tau_\perp$ will exhibit a significant dependence of the unsaturated gain on the value of $q$. Instead, we will apply the \emph{slowly-varying envelope approximation}\index{Slowly-varying envelope approximation} (SVEA) to \eqn{mml_ftz_expansion} by assuming that $|\dot{F}_p(t)| \ll |\Delta \omega_p F_p(t)|$ and neglecting the terms $\dot{F}_p(t)$ on the \lhs. This is valid when the time scale for changes in the modal polarization amplitudes $F_p(t)$ is long compared to the polarization relaxation time $\tau_\perp$. Then
+\begin{equation} \label{eqn:mml_fq_sol_temp}
+  \sum_p \mathcal{N}_{q p}\, \left(\mathcal{B} - i\, \Omega_p\right) F_p(t) = \half\, \mathcal{A}\, \sum_p e^{i \left(\Delta \omega_q - \Delta \omega_p\right) t}\, G_{q p}(t)\, E_p(t)\, , 
+\end{equation}
+where $\Omega_p \equiv \Delta \omega_q\, \tau_\perp$,
+\begin{equation} \label{eqn:mml_nqp_def}
+  \mathcal{N}_{q p} \equiv \int d z\, \widetilde{v}_q\z\, \widetilde{u}_p\z\, ,
+\end{equation}
+\begin{equation} \label{eqn:mml_gqp_def}  
+  G_{q p}(t) \equiv \int d z\, \widetilde{v}_q\z\, \widetilde{u}_p\z\, \widetilde{G}\zt\, , \nd
+\end{equation}
+\begin{equation} \label{eqn:mml_zop_def}
+  \int d z \equiv \begin{cases}
+    \int_0^{1} d z & \mbox{(URL)}\, , \\
+    \int_0^{1/2} d z\, \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z' & \mbox{(SWL or SHB)}\, .
+  \end{cases}
+\end{equation}
+Applying \eqn{mml_zop_def} to \eqn{mml_nqp_def}, we find that for both unidirectional ring and standing-wave resonators, $\mathcal{N}_{q p} = \delta_{q p}$, and \eqn{mml_fq_sol_temp} simplifies to
+\begin{equation} \label{eqn:mml_fq_sol}
+  F_q(t) = \half\, \Lq\, \sum_p e^{i \left(\Delta \omega_q - \Delta \omega_p\right) t}\, G_{q p}(t)\, E_p(t)\, ,
+\end{equation}
+where
+\begin{equation} \label{eqn:mml_lq_def}
+  \Lq \equiv \frac{\mathcal{A}}{\mathcal{B} - i\, \Omega_q}\, .
+\end{equation}
+
+Next, let's determine the evolution equation for $G_{q p}(t)$ by applying \eqn{mml_gqp_def} and \eqn{mml_zop_def} to \eqn{mml_gtz_scaled}. Using \eqn{mml_e_1d_zt_rv} and the corresponding representation for the macroscopic polarization, the nonlinear term on the \rhs can be written as
+\begin{equation*}
+  \begin{split}
+    2 \Re \left[ \widetilde{E}^\ast\zt\, \widetilde{F}\zt \right] &= \widetilde{E}^\ast\zt\, \widetilde{F}\zt + c.c. \\
+    &= \sum_{m n}  e^{-i\, \left(\Delta \omega_m - \Delta \omega_n\right) t}\, \widetilde{u}_m\z\, \widetilde{u}_n^\ast\z \left[ E_m(t)\, F_n^\ast(t) + F_m(t)\, E_n^\ast(t) \right]\, .
+  \end{split}
+\end{equation*}
+We obtain
+\begin{equation} \label{eqn:mml_gtz_gqp_temp}
+  \dot{G}_{q p}(t) = -\frac{1}{\tau_\parallel} \left\{ G_{q p}(t) - \overline{G}_{q p}(t)  + \sum_{m n} e^{-i\, \left(\Delta \omega_m - \Delta \omega_n\right) t} \kappa_{q p m n} \left[ E_m(t)\, F_n^\ast(t) + F_m(t)\, E_n^\ast(t) \right] \right\}\, ,
+\end{equation}
+where
+\begin{equation} \label{eqn:mml_gqp_bar_def}
+  \overline{G}_{q p}(t) \equiv \int d z\, \widetilde{v}_q\z\, \widetilde{u}_p\z\, \Gn\zt\, , \nd
+\end{equation}
+\begin{equation} \label{eqn:mml_kqp_mn_def}
+  \kappa_{q p m n} \equiv \int d z\, \widetilde{v}_q\z\, \widetilde{u}_p\z\, \widetilde{u}_m\z\, \widetilde{u}_n^\ast\z\, .
+\end{equation}
+
+Let's evaluate $\overline{G}_{q p}(t)$ and $\kappa_{q p m n}$ for the unidirectional ring resonator. Using \eqn{mml_1d_uvq_url} and \eqn{mml_zop_def}, we find
+\begin{equation} %\label{eqn:mll_url_zqp_spec}
+    \overline{G}_{q p}(t) = \int_{0}^{1} d z\, e^{i\, 2 (p - q)\, \pi\, z}\, \Gn\zt\, ,
+\end{equation}
+and we see that $\overline{G}_{q p}(t)$ is the complex exponential Fourier series coefficient of order $p - q$ for $\Gn\zt$ in the resonator. Suppose that $\Gn\zt = \Gnb(t)/(z_2 - z_1)$ for $0 < z_1 \le z \le z_2 < 1$, and is zero otherwise. In this (common) special case, when $q \ne p$ we have
+\begin{equation} %\label{eqn:mll_url_zqp_spec}
+    \overline{G}_{q p}(t) = \frac{\Gnb(t)}{z_2 - z_1}\, \int_{z_1}^{z_2} d z\, e^{i\, 2 (p - q)\, \pi\, z} = \frac{\exp[i\, 2 \left(p - q\right) \pi\, z_2] - \exp[i\, 2 \left(p - q\right) \pi\, z_1]}{i\, 2 \left(p - q\right) \pi \left(z_2 - z_1\right)} \, \Gnb(t)\, ,
+\end{equation}
+and $\overline{G}_{q q}(t) = \Gnb(t)$. Note that when $\{z_1, z_2\} \longrightarrow \{0, 1\}$, $\overline{G}_{q p}(t) \longrightarrow \delta_{q p}\, \Gnb(t)$.
+For the URL, the spatial mode coupling coefficient defined by \eqn{mml_kqp_mn_def} becomes
+\begin{equation}
+  \label{eqn:mml_1d_kqpmn_url}
+  \kappa_{q p m n} = \mathcal{C}^2_\mathrm{URL} \int_0^1 d z\, e^{i\, 2\, (-q + p + m - n)\, \pi\, z} = \Delta_{-q + p + m - n}(R)\, .
+\end{equation}
+
+In the case of the standing-wave resonator, we use \eqn{mml_1d_uvq_swl} and \eqn{mml_zop_def} to find
+\begin{equation} %\label{eqn:mll_swl_zqp_spec}
+  \overline{G}_{q p}(t) = \int_0^{1/2} d z\, \mathbf{v}_q\z \dotp \mathbf{u}_p\z\, \Gn\zt = 2 \int_0^{1/2} d z\, \cos\left[ 2\, (q - p)\, \pi\, z \right]\, \Gn\zt\, , 
+\end{equation}
+showing that $\overline{G}_{q p}(t)$ is the cosine Fourier series coefficient of order $q - p$ for $\Gn\zt$ in the SWL resonator. As we did above for the URL case, let's suppose that $\Gn\zt = \Gnb(t)/2 (z_2 - z_1)$ for $0 < z_1 \le z \le z_2 < 1/2$, and is zero otherwise. Then for $p \ne q$
+ \begin{equation} %\label{eqn:mml_1d_gqp_swl}
+\overline{G}_{q p}(t) = \frac{\sin[2\, (q - p)\, \pi\, z_2] - \sin[2\, (q - p)\, \pi\, z_1]}{2\, (q - p)\, \pi\, (z_2 - z_1)}\, \Gnb(t)\, .
+  \end{equation}
+When $\{z_1, z_2\} \longrightarrow \{0, 1/2\}$, $\overline{G}_{q p}(t) \longrightarrow \delta_{q p}\, \Gnb(t)$.
+For the SWL, the spatial mode coupling coefficient defined by \eqn{mml_kqp_mn_def} becomes
+\begin{equation*}
+  \begin{split}
+    \kappa_{q p m n} &= \int_0^{1/2} d z\, \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z^\prime \widetilde{v}_q\zp\, \widetilde{u}_p\zp\, \widetilde{u}_m\zp\, \widetilde{u}_n^\ast\zp \\
+    &= \int_0^{1/2} d z\,
+      \left\{ \left[ v_q^+\z\, u_p^+\z\, u_m^+\z\, u_n^{+\ast}\z + v_q^-\z\, u_p^-\z\, u_m^-\z\, u_n^{-\ast}\z \right]\right. \\
+      &\quad\quad\quad\quad\;\;\: + \left[ v_q^+\z\, u_p^+\z\, u_m^-\z\, u_n^{-\ast}\z + v_q^-\z\, u_p^-\z\, u_m^+\z\, u_n^{+\ast}\z \right] \\
+      &\quad\quad\quad\quad\;\;\, + \left. \left[ v_q^+\z\, u_p^-\z\, u_m^+\z\, u_n^{-\ast}\z + v_q^-\z\, u_p^+\z\, u_m^-\z\, u_n^{+\ast}\z \right] \right\}\\
+    &= \mathcal{C}^2_\mathrm{SWL} \int_0^{1/2} d z\,
+      \left\{ \left[ e^{\left[i\, 2 (-q + p + m - n) \pi\, z + \ln(1/R_1 R_2)\right] z} +  \frac{1}{R_1}\, e^{-\left[i\, 2 (-q + p + m - n) \pi\, z + \ln(1/R_1 R_2)\right] z} \right]\right. \\
+      &\quad\quad\quad\quad\quad\quad\quad\, + \left[ e^{\left[i\, 2 (q - p + m - n) \pi\, z + \ln(1/R_1 R_2)\right] z} +  \frac{1}{R_1}\, e^{-\left[i\, 2 (q - p + m - n) \pi\, z + \ln(1/R_1 R_2)\right] z} \right] \\
+      &\quad\quad\quad\quad\quad\quad\quad\, + \left. \left[ e^{\left[i\, 2 (q + p - m - n) \pi\, z + \ln(1/R_1 R_2)\right] z} +  \frac{1}{R_1}\, e^{-\left[i\, 2 (q + p - m - n) \pi\, z + \ln(1/R_1 R_2)\right] z} \right] \right\}\, ,
+  \end{split}
+\end{equation*}
+or
+\begin{equation}
+  \label{eqn:mml_1d_kqpmn_swl}
+  \kappa_{q p m n} = \Delta^\prime_{-q + p + m - n}\left(R_1\, R_2\right) + \Delta^\prime_{q - p + m - n}\left(R_1\, R_2\right) + \Delta^\prime_{q + p - m - n}\left(R_1\, R_2\right)\, ,
+\end{equation}
+where $\Delta^\prime_{q}\left(R_1\, R_2\right)$ is defined by \eqn{laser_resonator_1d_Deltap_qR}. The first term on the right of this equation couples co-propagating spatial modes (and is identical to the URL coupling term given by \eqn{mml_1d_kqpmn_url} when $R_2 = 1$), the second term couples counter-propagating spatial modes neglecting interference, and the third term couples modes incorporating spatial interference.
+
+% In the case of the one-dimensional unidirectional ring laser shown in \fig{resonator_1d_ring_gain}, we can write the spatially rapidly-varying electric field amplitude and macroscopic polarization --- assumed to be propagating in the $+\hatb{z}$ direction --- in terms of the corresponding slowly-varying fields as $\widetilde{E}\zt = E\zt e^{i k_0 z}$ and $\widetilde{F}\zt = F\zt e^{i k_0 z}$, respectively. This common factor of $\exp(i\, k_0\, z)$ has already been canceled from both sides of \eqn{cw_sml_etz_scaled}, which holds for the slowly-varying field amplitudes. Let's use \eqn{laser_resonator_1d_ezt_expansion} to write the slowly-varying electric field envelope function $\Ezt$ as
+%  \begin{equation} \label{eqn:mml_e_field_1d_t}
+% \Ezt \equiv \sum_{p = -\infty}^\infty u_{p}\z\, e^{-i\, \Delta \omega_p\, t}\, E_{p}(t)\, ,
+%  \end{equation}
+% consistent with both \eqn{cw_sml_etz_scaled} and \eqn{delta_w_q_def}. In \sct{laser_dynamics_1d_mml_frq}, we'll use $\delta \omega_p$ to represent the majority of the frequency shifts due to frequency pulling and dispersion, thereby reducing the magnitude and increasing the time scale of the phase fluctuations of the field envelope amplitude $E_p(t)$. We build our wave equation by substituting \eqn{mml_e_field_1d_t} into \eqn{cw_sml_etz_scaled}, and then applying \eqn{laser_resonator_1d_u_hlde} to obtain
+%  \begin{equation}%\label{}
+%    \sum_{p = -\infty}^\infty u_{p}\z\, e^{-i\, \Delta \omega_p\, t} \left[\dot{E}_{p}(t) + \left(\frac{1}{2 \tau_p} - i\, \delta \omega_p\right) E_{p}(t)\right] = F\zt\, ,
+%  \end{equation}
+% where $\dot{E}_{p}(t) \equiv d E_{p}(t)/d t$, and $\tau_p$ is the photon lifetime of the cavity defined by \eqn{f_fwhm} with $|\Gamma|^2 = R e^{-\alpha\wn L}$. Now we multiply both sides of this equation by $v_q\z$, and then integrate over $z$ from $0$ to $1$ to obtain
+% where we have used \eqn{laser_resonator_1d_uv_biortho} and defined
+%  \begin{equation} \label{eqn:mml_1d_fq_def_url}
+% F_q(t) \equiv e^{+i\, \Delta \omega_q\, t} \int_0^1 d z\, v_q\z\, F\zt\, .
+%  \end{equation}
+
+% We use a similar approach to formulate the corresponding multimode field amplitude evolution equation for the one-dimensional standing-wave laser shown in \fig{resonator_1d_sw_gain}. In this case, we must write the spatially rapidly-varying electric field amplitude and macroscopic polarization in terms of the corresponding slowly-varying fields as $\widetilde{E}\zt = E^+\zt e^{+i k_0 z} + E^-\zt e^{-i k_0 z}$ and $\widetilde{F}\zt = F^+\zt e^{+i k_0 z} + F^-\zt e^{-i k_0 z}$, respectively. We will follow \sct{laser_resonators_1d_swl}, and write both $\mathbf{E}\zt$ and $\mathbf{F}\zt$ as column vectors, as we did in \eqn{laser_resonators_1d_e_sw_def}, with the electric field amplitude defined in \sct{laser_resonators_1d_swl} by \eqn{laser_resonator_1d_ezt_expansion_sw}:
+%  \begin{equation*}
+% \mathbf{E}\zt \equiv \sum_{p = -\infty}^\infty \mathbf{u}_{p}\z\, e^{-i\, \Delta \omega_p\, t}\, E_{p}(t)\, .
+%  \end{equation*}
+% We use \eqn{cw_sml_etz_scaled} to write the wave equation for the slowly-varying amplitudes as a vector operator equation, given by
+%  \begin{equation}
+%  \hat{\mathcal{L}}\, \mathbf{E}\zt = \mathbf{F}\zt ,
+%  \end{equation}
+% where
+%  \begin{equation}
+% \hat{\mathcal{L}} =  \begin{bmatrix} \ppt + \ppz + \half \alpha\wn L & 0  \\ 0 & \ppt - \ppz + \half \alpha\wn L \end{bmatrix} .
+%  \end{equation}
+% Applying this operator to \eqn{laser_resonator_1d_ezt_expansion_sw}, we find
+%  \begin{equation}%\label{}
+%    \sum_{p = -\infty}^\infty \mathbf{u}_{p}\z\, e^{-i\, \Delta \omega_p\, t} \left[\dot{E}_{p}(t) + \left(\frac{1}{2 \tau_p} - i\, \delta \omega_p\right) E_{p}(t)\right] = \mathbf{F}\zt\, .
+%  \end{equation}
+% Now we take the dot product of both sides of this equation with $\mathbf{v}_q\z$, and then integrate over $z$ from $0$ to $1/2$ to reproduce \eqn{mml_edot_temp} in the standing-wave case, but with $F_q(t)$ defined through \eqn{laser_resonator_1d_uv_biortho_sw} as
+%  \begin{equation} \label{eqn:mml_1d_fq_def_swl}
+% F_q(t) \equiv e^{+i\, \Delta \omega_p\, t} \int_0^{1/2} d z\, \mathbf{v}_q\z \dotp \mathbf{F}\zt .
+%  \end{equation}
+
+In the next section, we study frequency shifts (particularly pulling and dispersion) in multimode lasers. Then in the following two sections, we use the resulting multimode evolution equations to study the dynamics of \emph{injection-seeded gain-switched} and \emph{passively mode-locked} lasers.

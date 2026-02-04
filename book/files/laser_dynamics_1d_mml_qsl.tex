@@ -8,72 +8,66 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \section{Injection-Seeded Gain-Switched Lasers\label{sct:laser_dynamics_1d_mml_qsl}}
 
-We consider the ideal four-level laser dynamical equations developed in \sct{laser_amp_1d_pdes}, and we assume that $\gamma_\perp \longrightarrow \infty$, so that $\Omega = 0$. The formal integral of \eqn{cw_sml_ftz_scaled} becomes
- \begin{equation} \label{eqn:qsl_ftzt_formal}
-\widetilde{F}\zt = \frac{\gamma_\perp}{2}\, e^{-\gamma_\perp t} \int_{-\infty}^{t} d t^\prime\, e^{\gamma_\perp t^\prime}\, \widetilde{G}\left(z, t^\prime\right) \widetilde{E}\left(z, t^\prime\right) \, .
- \end{equation}
-We now apply the strong REA in the same limit, and assume that $|\partial \widetilde{E}\zt / \partial t| \ll \gamma_\perp |\widetilde{E}\zt|$, and $|\partial \widetilde{G}\zt / \partial t| \ll \gamma_\perp |\widetilde{G}\zt|$. In this case, both $\widetilde{E}\left(z, t^\prime\right)$ and $\widetilde{G}\left(z, t^\prime\right)$ can be moved outside of the integral, yielding
- \begin{equation} \label{eqn:qsl_ftzt_rea}
-\widetilde{F}\zt = \frac{1}{2}\, \widetilde{G}\zt\, \widetilde{E}\zt \, .
- \end{equation}
-Substituting this result into \eqn{cw_sml_gtz_scaled} gives
- \begin{equation} \label{eqn:qsl_dgdt_rea}
-\ppt \widetilde{G}\zt = \frac{1}{\tau_\parallel} \left[ \overline{G}\zt - \widetilde{G}\zt - \widetilde{G}\zt \left| \widetilde{E}\zt\right|^2 \right]\, ,
- \end{equation}
+We consider the ideal four-level laser dynamical equations developed in \sct{laser_dynamics_1d_mml_mbe}. Let's allow the intracavity field to be supplemented by a quantity $\widetilde{J}\zt$ arising from a very weak input $F_1(t)$ injected through the output coupler mirror $\mathcal{M}_1$, as shown in \fig{resonator_1d_smat}. This additional field will contribute to the total macroscopic polarization, so that
+\begin{equation} \label{eqn:qsl_ftzt_inj}
+    \widetilde{F}\zt = \frac{1}{2}\, \widetilde{G}\zt\, \left[\widetilde{E}\zt + \widetilde{J}\zt\right]\, .
+\end{equation}
+In \sct{laser_resonators_1d_tcm}, we learned how to expand $\widetilde{J}\zt$ as a series of quasi-normal spatial modes in both the unidirectional ring and standing-wave resonator cases. Therefore,
+\begin{equation}
+    \widetilde{J}\zt = \sum_q \widetilde{u}_q\z\, e^{-i\, \Delta \omega_q\, t}\, J_q(t)\, .
+\end{equation}
+and we can rewrite \eqn{mml_fq_sol} as
+\begin{equation} \label{eqn:mml_fq_qsl}
+  F_q(t) = \half\, \Lq\, \sum_p e^{i \left(\Delta \omega_q - \Delta \omega_p\right) t}\, G_{q p}(t)\, \left[E_p(t) + J_p(t)\right]\, .
+\end{equation}
 
-Let's allow the intracavity field to be supplemented by a quantity $\widetilde{J}\zt$ arising from a very weak input $F_1(t)$ injected through the output coupler mirror $\mathcal{M}_1$, as shown in \fig{resonator_1d_smat}. This additional field will contribute to the total macroscopic polarization, so that
- \begin{equation} \label{eqn:qsl_ftzt_inj}
-\widetilde{F}\zt = \frac{1}{2}\, \widetilde{G}\zt\, \left[\widetilde{E}\zt + \widetilde{J}\zt\right]\, .
- \end{equation}
-In \sct{laser_resonators_1d_tcm}, we learned how to expand $\widetilde{J}\zt$ as a series of quasi-normal spatial modes in both the unidirectional ring and standing-wave resonator cases. Because the injected field is so weak, we do not need to include it in the saturation term in \eqn{qsl_dgdt_rea}.
+%  \subsection{Unidirectional Ring Lasers\label{sct:laser_dynamics_1d_mml_qsl_url}}
+% As discussed in the introduction to \chp{laser_dynamics_1d_mml}, in the case of the URL the rapidly-varying spatial function $\exp(+i k_0 z)$ is common to both $\widetilde{E}\zt$ and $\widetilde{F}\zt$, and can therefore be ignored in \eqn{qsl_ftzt_rea} and \eqn{qsl_dgdt_rea}. Therefore, we find $F_q(t)$ in \eqn{mml_edot_temp} by substituting \eqn{mml_e_field_1d_t} --- and the corresponding expression for $J\zt$ --- into \eqn{qsl_ftzt_inj}, and then the result into \eqn{mml_1d_fq_def_url}. We obtain
+%  \begin{equation} \label{eqn:qsl_url_fqt}
+% F_q(t) = \half\, \sum_p e^{i 2 ( q - p ) \pi t}\, G_{q - p}(t) \left[ E_p(t) + J_p(t) \right]\, ,
+%  \end{equation}
+% where
+%  \begin{equation} \label{eqn:qsl_gqp_def}
+% G_{q - p}(t) \equiv \int_0^1 d z\, v_q\z\, u_p\z\, G\zt = \int_0^1 d z\, e^{-i 2 (q - p) \pi z}\, G\zt\, ,
+%  \end{equation}
+% and $J_p(t)$ is given by \eqn{eqt_inj}. \Eqn{qsl_url_fqt} and the slowly-spatially-varying partial differential equation
+%  \begin{equation} \label{eqn:qsl_dgdt_url}
+% \ppt G\zt = \frac{1}{\tau_\parallel} \left[ \overline{G}\zt - G\zt - G\zt \left| E\zt\right|^2 \right]\,
+%  \end{equation}
+% are the only tools we'll need to solve numerically a wide variety of gain-switched URL problems.
 
- \subsection{Unidirectional Ring Lasers\label{sct:laser_dynamics_1d_mml_qsl_url}}
-As discussed in the introduction to \chp{laser_dynamics_1d_mml}, in the case of the URL the rapidly-varying spatial function $\exp(+i k_0 z)$ is common to both $\widetilde{E}\zt$ and $\widetilde{F}\zt$, and can therefore be ignored in \eqn{qsl_ftzt_rea} and \eqn{qsl_dgdt_rea}. Therefore, we find $F_q(t)$ in \eqn{mml_edot_temp} by substituting \eqn{mml_e_field_1d_t} --- and the corresponding expression for $J\zt$ --- into \eqn{qsl_ftzt_inj}, and then the result into \eqn{mml_1d_fq_def_url}. We obtain
- \begin{equation} \label{eqn:qsl_url_fqt}
-F_q(t) = \half\, \sum_p e^{i 2 ( q - p ) \pi t}\, G_{q - p}(t) \left[ E_p(t) + J_p(t) \right]\, ,
- \end{equation}
-where
- \begin{equation} \label{eqn:qsl_gqp_def}
-G_{q - p}(t) \equiv \int_0^1 d z\, v_q\z\, u_p\z\, G\zt = \int_0^1 d z\, e^{-i 2 (q - p) \pi z}\, G\zt\, ,
- \end{equation}
-and $J_p(t)$ is given by \eqn{eqt_inj}. \Eqn{qsl_url_fqt} and the slowly-spatially-varying partial differential equation
- \begin{equation} \label{eqn:qsl_dgdt_url}
-\ppt G\zt = \frac{1}{\tau_\parallel} \left[ \overline{G}\zt - G\zt - G\zt \left| E\zt\right|^2 \right]\,
- \end{equation}
-are the only tools we'll need to solve numerically a wide variety of gain-switched URL problems.
+%  \subsection{Standing-Wave Lasers\label{sct:laser_dynamics_1d_mml_qsl_swl}}
+% The calculation of the macroscopic polarization for a multimode standing-wave laser requires that we pay attention to the interference between the counterpropagating fields. We'll follow a strategy similar to that of the continuous-wave case described in \sct{laser_statics_1d_shb}. We begin with an explicit expression for the spatially rapidly-varying polarization of \eqn{qsl_ftzt_inj}, written as
+%  \begin{multline} \label{eqn:qsl_1d_fzt_swl}
+% F^+\zt\, e^{+i k_0 z} + F^-\zt\, e^{-i k_0 z} = \\ \half\, \widetilde{G}\zt \left\{\left[E^+\zt + J^+\zt\right] e^{+i k_0 z} + \left[E^-\zt + J^-\zt\right] e^{-i k_0 z}\right\}\, .
+%  \end{multline}
+% The envelope functions $F^\pm\zt$, $E^\pm\zt$, and $J^\pm\zt$ are spatially slowly varying, but we will need to average $\widetilde{G}\zt$ over a physical wavelength. Following the procedure outlined in \eqn{ld1d_sw_shb_pzp_full}, we find
+%  \begin{subequations} \label{eqn:qsl_1d_fpmzt_swl}
+%  \begin{align}
+% F^+\zt &= \half\, \mathcal{G}^{[0]}\zt \left[E^+\zt + J^+\zt\right] + \half\, \mathcal{G}^{[-2]}\zt \left[E^-\zt + J^-\zt\right]\, , \nd \\
+% F^-\zt &= \half\, \mathcal{G}^{[+2]}\zt \left[E^+\zt + J^+\zt\right] + \half\, \mathcal{G}^{[0]}\zt \left[E^-\zt + J^-\zt\right]\, ,
+%  \end{align}
+%  \end{subequations}
+% where
+%  \begin{equation} \label{eqn:qsl_1d_gnzt}
+% \mathcal{G}^{[n]}\zt \equiv \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z^\prime\, e^{+i n k_0 z^\prime}\, \widetilde{G}(z^\prime, t)\, .
+%  \end{equation}
+% Substituting \eqn{qsl_1d_fpmzt_swl} into \eqn{mml_1d_fq_def_swl} yields
+%  \begin{multline}
+% F_q(t) = \half \sum_p e^{i 2 (q - p) \pi t} \left[E_p(t) + J_p(t)\right]
+% \int_0^{1/2} d z\, \left[ \mathbf{v}_q\z \dotp \mathbf{u}_p\z\, \mathcal{G}^{[0]}\zt \right. \\
+% \left. + v_q^+\z\, u_p^-\z\, \mathcal{G}^{[-2]}\zt + v_q^-\z\, u_p^+\z\, \mathcal{G}^{[+2]}\zt \right]\, .
+%  \end{multline}
 
- \subsection{Standing-Wave Lasers\label{sct:laser_dynamics_1d_mml_qsl_swl}}
-The calculation of the macroscopic polarization for a multimode standing-wave laser requires that we pay attention to the interference between the counterpropagating fields. We'll follow a strategy similar to that of the continuous-wave case described in \sct{laser_statics_1d_shb}. We begin with an explicit expression for the spatially rapidly-varying polarization of \eqn{qsl_ftzt_inj}, written as
- \begin{multline} \label{eqn:qsl_1d_fzt_swl}
-F^+\zt\, e^{+i k_0 z} + F^-\zt\, e^{-i k_0 z} = \\ \half\, \widetilde{G}\zt \left\{\left[E^+\zt + J^+\zt\right] e^{+i k_0 z} + \left[E^-\zt + J^-\zt\right] e^{-i k_0 z}\right\}\, .
- \end{multline}
-The envelope functions $F^\pm\zt$, $E^\pm\zt$, and $J^\pm\zt$ are spatially slowly varying, but we will need to average $\widetilde{G}\zt$ over a physical wavelength. Following the procedure outlined in \eqn{ld1d_sw_shb_pzp_full}, we find
- \begin{subequations} \label{eqn:qsl_1d_fpmzt_swl}
- \begin{align}
-F^+\zt &= \half\, \mathcal{G}^{[0]}\zt \left[E^+\zt + J^+\zt\right] + \half\, \mathcal{G}^{[-2]}\zt \left[E^-\zt + J^-\zt\right]\, , \nd \\
-F^-\zt &= \half\, \mathcal{G}^{[+2]}\zt \left[E^+\zt + J^+\zt\right] + \half\, \mathcal{G}^{[0]}\zt \left[E^-\zt + J^-\zt\right]\, ,
- \end{align}
- \end{subequations}
-where
- \begin{equation} \label{eqn:qsl_1d_gnzt}
-\mathcal{G}^{[n]}\zt \equiv \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z^\prime\, e^{+i n k_0 z^\prime}\, \widetilde{G}(z^\prime, t)\, .
- \end{equation}
-Substituting \eqn{qsl_1d_fpmzt_swl} into \eqn{mml_1d_fq_def_swl} yields
- \begin{multline}
-F_q(t) = \half \sum_p e^{i 2 (q - p) \pi t} \left[E_p(t) + J_p(t)\right]
-\int_0^{1/2} d z\, \left[ \mathbf{v}_q\z \dotp \mathbf{u}_p\z\, \mathcal{G}^{[0]}\zt \right. \\
-\left. + v_q^+\z\, u_p^-\z\, \mathcal{G}^{[-2]}\zt + v_q^-\z\, u_p^+\z\, \mathcal{G}^{[+2]}\zt \right]\, .
- \end{multline}
-
-We'll need to construct partial differential equations for $\mathcal{G}^{[0]}\zt$ and $\mathcal{G}^{[\pm 2]}\zt$. We expand $|\widetilde{E}\zt|^2$ as
- \begin{equation}
-\left|\widetilde{E}\zt\right|^2 = \left|E^{+}\zt\right|^2 +  \left|E^{-}\zt\right|^2 + E^{+}\zt\, E^{- \ast}\zt\, e^{+i 2 k_0 z} + E^{-}\zt\, E^{+ \ast}\zt\, e^{-i 2 k_0 z}\, ,
- \end{equation}
-substitute this expression into \eqn{qsl_dgdt_rea}, and then apply the average specified by \eqn{qsl_1d_gnzt} to obtain
- \begin{equation} \label{eqn:qsl_dgndt_swl}
- \begin{split}
-\ppt \mathcal{G}^{[n]}\zt &= \frac{1}{\tau_\parallel} \left\{ \delta_{n, 0}\, \overline{G}\zt - \mathcal{G}^{[n]}\zt - \mathcal{G}^{[n]}\zt \left[ \left|E^{+}\zt\right|^2 +  \left|E^{-}\zt\right|^2 \right] \right. \\
-&\qquad \left. -~\mathcal{G}^{[n + 2]}\zt\, E^{+}\zt\, E^{- \ast}\zt - \mathcal{G}^{[n - 2]}\zt\, E^{-}\zt\, E^{+ \ast}\zt \right\}\, .
- \end{split}
- \end{equation}
-If the pump has a short duration compared to $\tau_\parallel$, then rapid temporal oscillations in $E^{\pm}\zt\, E^{\mp \ast}\zt$ will diminish the contributions of higher-order spatial averages and allow us to neglect $\mathcal{G}^{[\pm 4]}\zt$. 
+% We'll need to construct partial differential equations for $\mathcal{G}^{[0]}\zt$ and $\mathcal{G}^{[\pm 2]}\zt$. We expand $|\widetilde{E}\zt|^2$ as
+%  \begin{equation}
+% \left|\widetilde{E}\zt\right|^2 = \left|E^{+}\zt\right|^2 +  \left|E^{-}\zt\right|^2 + E^{+}\zt\, E^{- \ast}\zt\, e^{+i 2 k_0 z} + E^{-}\zt\, E^{+ \ast}\zt\, e^{-i 2 k_0 z}\, ,
+%  \end{equation}
+% substitute this expression into \eqn{qsl_dgdt_rea}, and then apply the average specified by \eqn{qsl_1d_gnzt} to obtain
+%  \begin{equation} \label{eqn:qsl_dgndt_swl}
+%  \begin{split}
+% \ppt \mathcal{G}^{[n]}\zt &= \frac{1}{\tau_\parallel} \left\{ \delta_{n, 0}\, \overline{G}\zt - \mathcal{G}^{[n]}\zt - \mathcal{G}^{[n]}\zt \left[ \left|E^{+}\zt\right|^2 +  \left|E^{-}\zt\right|^2 \right] \right. \\
+% &\qquad \left. -~\mathcal{G}^{[n + 2]}\zt\, E^{+}\zt\, E^{- \ast}\zt - \mathcal{G}^{[n - 2]}\zt\, E^{-}\zt\, E^{+ \ast}\zt \right\}\, .
+%  \end{split}
+%  \end{equation}
+% If the pump has a short duration compared to $\tau_\parallel$, then rapid temporal oscillations in $E^{\pm}\zt\, E^{\mp \ast}\zt$ will diminish the contributions of higher-order spatial averages and allow us to neglect $\mathcal{G}^{[\pm 4]}\zt$. 
