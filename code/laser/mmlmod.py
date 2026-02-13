@@ -1492,6 +1492,25 @@ class ActiveLaserMediumFWM(ActiveLaserMedium):
         
         return np.block([[dfda.real, dfdp.real], [dfada.imag, dfadp.imag]])
 
+class ActiveLaserMediumFWMNew(ActiveLaserMediumFWM):
+    def _b_mn(self, m, n):
+        '''Return frequency coupling coefficient of each mode in q (private).
+        
+        Parameter
+        ---------
+        m, n : numpy.ndarray.int32
+            Arrays containing longitudinal mode indices
+        alpha : numpy.ndarray.float64
+            Linewidth enhacement factor
+    
+        Returns
+        --------
+        numpy.ndarray.complex128
+            Array containing B_{m n} using normalized detuning relative to q = 0
+        '''
+        return -( self._shifts.get_gamma(m) + np.conj(self._shifts.get_gamma(n)) )
+
+
 class ActiveLaserMediumAWM(ActiveLaserMedium):
     '''Derived class for configuration of AWM amplifiers and absorbers
        Provide support for computation of the macrosopic polarization
