@@ -388,14 +388,35 @@ and we introduce the steady-state effective gain function $K\z$ and the single-m
 \begin{equation} \label{eqn:mflt_kz_def}
     \begin{split}
         K(z) &\equiv \exp\left(\int_0^z d z^\prime\, \left\{\Gn\left(z^\prime\right) \mathcal{S}\left[I\left(z^\prime\right), I\left(1 - z^\prime\right)\right] - \alpha_0\left(z^\prime\right)\right\}\right)\\
-        &\approx \exp\left[ \int_0^z d z^\prime\, g_\mathrm{eff}(z^\prime) \right]\, ,
+        &\approx \exp\left[ \int_0^z d z^\prime\, g_\mathrm{eff}(z^\prime) \right]\, .
     \end{split}
 \end{equation}
-where we have followed the discussion in \sct{laser_statics_1d_approx} and defined $g_\mathrm{eff}(z)$ for the \emph{unwrapped} cavity as
+Here we have followed the discussion in \sct{laser_statics_1d_approx} and defined $g_\mathrm{eff}(z)$ for the \emph{unwrapped} cavity as
 \begin{equation}
     g_\mathrm{eff}(z) \equiv \beta\, \Gn\left(z\right) - \alpha_0\left(z\right) + \ln\left(R_2\right) \delta(z - 1/2) + \ln\left(R_1\right) \delta(z - 1)\, ,
 \end{equation}
-with $\beta$ given by \eqn{sml_1d_u_url_nu_beta} for $R = R_1\, R_2$ in the standing-wave cavity case. We note that $\Gn(1 - z) = \Gnz$ because $\Gnz$ is symmetric about $z = 1/2$ in the unfolded cavity, and that $\Gn(1 + z) = \Gnz$ because the gain is also periodic. Then we define the forward-propagating electric-field amplitude function $E(z,t)$ in terms of the single-mode steady-state intensity as
+where from \eqn{sml_1d_u_url_nu_beta} $\beta$ in the standing-wave case is given by  
+\begin{equation}
+    \label{sml_1d_u_swl_nu_beta}
+    \beta \equiv \frac{\ln(1/R_1\, R_2\, e^{-\overline{\alpha}_0})}{\overline{G}_0}\, ,
+\end{equation}
+and the unsaturated round trip gain (through the unfolded cavity) and the total round-trip background loss are defined as
+\begin{subequations}
+    \begin{align}
+        \Gnb &\equiv \int_0^1 d z\, \Gnz\, , \nd \\
+        \anb &\equiv \int_0^1 d z\, \anz\, .
+    \end{align}
+\end{subequations}
+We note that $\Gn(1 - z) = \Gnz$ because $\Gnz$ is symmetric about $z = 1/2$ in the unfolded cavity, and that $\Gn(1 + z) = \Gnz$ because the gain is also periodic, with the same observations applying to the background loss. In the general case over the coordinate domain $0 < z < 1$, the approximate expression for $K\z$ is given by
+\begin{equation} \label{eqn:mflt_kz_genx}
+    K\z \approx \left[ \theta(z)\, \theta(1/2 - z) + \theta(z - 1/2)\, \theta(1 - z)\, R_2 \right] \exp\left\{ \int_0^z d z^\prime \left[\beta\, \Gn\left(z^\prime\right) - \alpha_0\left(z^\prime\right) \right] \right\} \, ,
+\end{equation}
+and in the special case where $\Gnz = \Gnb$ and $\anz = \anb \equiv \int_{0}^{1} d z\, \anz$ we have
+\begin{equation} \label{eqn:mflt_kz_approx}
+    K\z \approx \left[ \theta(z)\, \theta(1/2 - z) + \theta(z - 1/2)\, \theta(1 - z)\, R_2 \right] \exp\left[\ln\left(\frac{1}{R_1\, R_2}\right) z\right]\, .
+\end{equation}
+
+Now we define the forward-propagating electric-field amplitude function $E(z,t)$ in terms of the single-mode steady-state intensity as
 \begin{equation} \label{eqn:mflt_ezt_def}
     E_{+}\zt \equiv I^{1/2}(z)\, E\zt = K^{1/2}\z\, \sqrt{I_0}\, E\zt\, .
 \end{equation}
@@ -430,7 +451,7 @@ Since $K\z$ --- and therefore $I\z$ --- is periodic and consistent with the boun
 % \end{multline}
 where
 \begin{equation}
-    \mathcal{S}[E] \equiv \frac{1}{1 + I_0 \left[K\z \left|E\zt\right|^2 + K(-z) \left|E(-z, t)\right|^2\right]}\, .
+    \mathcal{S}[E] \equiv \frac{1}{1 + I_0 \left[K\z \left|E\zt\right|^2 + K(-z) \left|E(-z, t)\right|^2\right]}\, ,
 \end{equation}
 % instead of \blue{old and busted}
 % \begin{multline}
@@ -514,11 +535,7 @@ Let's try to simplify this ponderous partial differential equation before we tak
 \end{equation}
 where
 \begin{equation} \label{eqn:mflt_hnb_def}
-    \Hnb \equiv \frac{\Gnb}{\Gth}\, ,
-\end{equation}
-and the unsaturated round trip gain (through the unfolded cavity) is defined as
-\begin{equation}
-    \Gnb \equiv \int_{0}^{1} d z\, \Gn\z\, .
+    \Hnb \equiv \frac{\Gnb}{\Gth}\, .
 \end{equation}
 Next, we'll average our equation of motion spatially over one round trip to obtain an expression for the mean field. For example, on the \lhs,
 \begin{equation}
@@ -755,17 +772,17 @@ since $G_0$, $K$, and $\phi$ are periodic in the unfolded cavity.
 %The first term on the final \rhs vanishes because both $K$ and $\phi$ are periodic.
 
 % The saturation terms in the first line of the \rhs of \eqn{mflt_ezt_con} arise from the Taylor series expansion of \eqn{ld1d_shb_sw_low_g}, where we assumed that the gain is only slightly above threshold and the resulting circulating intensities are very small compared to the saturation intensity. In \sct{laser_statics_shb_1d}, we determined that this approximation led to very inaccurate results as the pump increases above the threshold value. Instead, we found a good approximation to the continuous-wave solution for the intensity circulating within a standing-wave laser cavity (assuming constant unsaturated gain and background loss that fills the resonator). Adapting that result for the unfolded cavity, we write
-For the time being, let's assume that the unsaturated gain and the background loss are constants and fill the resonator, so that $\Gnz = \Gnb$. In this case, the approximate expression given by the second line of \eqn{mflt_kz_def} becomes
-\begin{equation} \label{eqn:mflt_kz_approx}
-    K\z \approx \left[ \theta(z)\, \theta(1/2 - z) + \theta(z - 1/2)\, \theta(1 - z)\, R_2 \right] \exp\left[\ln\left(\frac{1}{R_1\, R_2}\right) z\right]\, .
-\end{equation}
+% For the time being, let's assume that the unsaturated gain and the background loss are constants and fill the resonator, so that $\Gnz = \Gnb$. In this case, the approximate expression given by the second line of \eqn{mflt_kz_def} becomes
+% \begin{equation} %\label{eqn:mflt_kz_approx}
+%     K\z \approx \left[ \theta(z)\, \theta(1/2 - z) + \theta(z - 1/2)\, \theta(1 - z)\, R_2 \right] \exp\left[\ln\left(\frac{1}{R_1\, R_2}\right) z\right]\, .
+% \end{equation}
 % and
 % \begin{equation}
 %     I_0 \approx \frac{\mathcal{C}^2}{\kappa} \left( \frac{\Gnb}{\Gth}  - 1 \right)\, ,
 % \end{equation}
 % where $\mathcal{C}$ is defined by \eqn{laser_resonator_1d_u_norm_swl}.
 % For consistency, we must replace the saturation term on the \rhs of \eqn{mflt_mean_sat} with $\kappa\, [|E(\tau)|^2 - 1]$.
-We can immediately calculate the average value of the effective gain from \eqn{mflt_kbar_def} as
+For the time being, let's assume that the unsaturated gain and the background loss are constants and fill the resonator, so that $\Gnz = \Gnb$ and $\anz = \anb$. In this case, we can use \eqn{mflt_kz_approx} to calculate the average value of the effective gain from \eqn{mflt_kbar_def} as
 % \begin{equation}
 %     \begin{split}
 %         \overline{J} &= \int_{0}^{1} d u\, \frac{\kappa\, K(u)}{\left[1 + \kappa\, I_0\, K(u)\right]^2} \\
