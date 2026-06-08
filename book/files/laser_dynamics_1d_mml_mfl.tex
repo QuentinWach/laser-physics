@@ -400,7 +400,7 @@ where from \eqn{sml_1d_u_url_nu_beta} $\beta$ in the standing-wave case is given
     \label{sml_1d_u_swl_nu_beta}
     \beta \equiv \frac{\ln(1/R_1\, R_2\, e^{-\overline{\alpha}_0})}{\overline{G}_0}\, ,
 \end{equation}
-and the unsaturated round trip gain (through the unfolded cavity) and the total round-trip background loss are defined as
+and the unsaturated round-trip gain (through the unfolded cavity) and the total round-trip background loss are defined as
 \begin{subequations}
     \begin{align}
         \Gnb &\equiv \int_0^1 d z\, \Gnz\, , \nd \\
@@ -411,7 +411,7 @@ We note that $\Gn(1 - z) = \Gnz$ because $\Gnz$ is symmetric about $z = 1/2$ in 
 \begin{equation} \label{eqn:mflt_kz_genx}
     K\z \approx \left[ \theta(z)\, \theta(1/2 - z) + \theta(z - 1/2)\, \theta(1 - z)\, R_2 \right] \exp\left\{ \int_0^z d z^\prime \left[\beta\, \Gn\left(z^\prime\right) - \alpha_0\left(z^\prime\right) \right] \right\} \, ,
 \end{equation}
-and in the special case where $\Gnz = \Gnb$ and $\anz = \anb \equiv \int_{0}^{1} d z\, \anz$ we have
+and in the special case where $\Gnz = \Gnb$ and $\anz = \anb$ we have
 \begin{equation} \label{eqn:mflt_kz_approx}
     K\z \approx \left[ \theta(z)\, \theta(1/2 - z) + \theta(z - 1/2)\, \theta(1 - z)\, R_2 \right] \exp\left[\ln\left(\frac{1}{R_1\, R_2}\right) z\right]\, .
 \end{equation}
@@ -743,7 +743,7 @@ Now let's look at the first nonlinear differential convolution term, given by
 Using integration by parts, the integral can be rewritten as
 \begin{equation} \label{eqn:mflt_nlo_ibp}
     \begin{split}
-        \frac{\mathcal{C}^2}{\Gnb} \int_{0}^{1} d u\, \Gn(u)\, K(u)\, & \frac{\partial}{\partial \tau}\, \phi(\tau - 2 u) \\
+        \frac{\mathcal{C}^2}{\Gnb} \int_{0}^{1} d u\, & \Gn(u)\, K(u)\, \frac{\partial}{\partial \tau}\, \phi(\tau - 2 u) \\
        &= -\frac{\mathcal{C}^2}{2\, \Gnb} \int_{0}^{1} d u\, \Gn(u)\, K(u) \frac{\partial}{\partial u}\, \phi(\tau - 2 u) \\
         &= -\frac{\mathcal{C}^2}{2\, \Gnb}\, \Gn(u)\, K(u)\, \phi(\tau - 2 u) \Big|_0^1 + \frac{\mathcal{C}^2}{2\, \Gnb} \int_{0}^{1} d u\, \phi(\tau - 2 u)\, \frac{d}{d u}\, \left[\Gn(u)\, K(u)\right] \\
         &= \frac{\mathcal{C}^2}{2\, \Gnb} \int_{0}^{1} d u\, \phi(\tau - 2 u)\, \frac{d}{d u}\, \left[\Gn(u)\, K(u)\right]
@@ -782,6 +782,15 @@ since $G_0$, $K$, and $\phi$ are periodic in the unfolded cavity.
 % \end{equation}
 % where $\mathcal{C}$ is defined by \eqn{laser_resonator_1d_u_norm_swl}.
 % For consistency, we must replace the saturation term on the \rhs of \eqn{mflt_mean_sat} with $\kappa\, [|E(\tau)|^2 - 1]$.
+
+\begin{equation}
+    \begin{split}
+        \overline{K} &= \int_{0}^{1/2} d \zeta\, \exp\left\{\int_{0}^{\zeta} d z\, \left[\beta\, \Gnz - \anz\right] \right\} + R_2\, \int_{1/2}^{1} d \zeta\, \exp\left\{\int_{0}^{\zeta} d z\, \left[\beta\, \Gnz - \anz\right] \right\}\\
+        &= \int_{0}^{1/2} d \zeta\, \exp\left\{\int_{0}^{\zeta} d z\, \left[\beta\, \Gnz - \anz\right] \right\} \\
+        &\qquad + \sqrt{\frac{R_2}{R_1}}\, \int_{0}^{1/2} d \zeta\, \exp\left\{\int_{0}^{\zeta} d z\, \left[\beta\, G_0(z + 1/2) - \alpha_0(z + 1/2)\right] \right\} \, .
+    \end{split}
+\end{equation}
+
 For the time being, let's assume that the unsaturated gain and the background loss are constants and fill the resonator, so that $\Gnz = \Gnb$ and $\anz = \anb$. In this case, we can use \eqn{mflt_kz_approx} to calculate the average value of the effective gain from \eqn{mflt_kbar_def} as
 % \begin{equation}
 %     \begin{split}
@@ -794,7 +803,7 @@ For the time being, let's assume that the unsaturated gain and the background lo
     \begin{split}
         \overline{K} &= \int_{0}^{1/2} d \zeta\, \exp\left[\ln\left(1/R_1\, R_2\right) \zeta\right] + R_2 \int_{1/2}^{1} d \zeta\, \exp\left[\ln\left(1/R_1\, R_2\right) \zeta\right] \\
         &= \left(1 + \sqrt{\frac{R_2}{R_1}}\right) \int_{0}^{1/2} d \zeta\, \exp\left[\ln\left(1/R_1\, R_2\right) \zeta\right] \\
-        &= \frac{1}{\mathcal{C}^2}.
+        &= \frac{1}{\mathcal{C}^2}\, .
     \end{split}
 \end{equation}
 % We recall that

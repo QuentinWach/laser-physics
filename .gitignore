@@ -12,3 +12,5 @@ book/rgb_laser_physics.ilg
 book/rgb_laser_physics.ind
 book/rgb_laser_physics.out
 book/rgb_laser_physics.toc
+book/%OUTDIR%/rgb_laser_physics.aux
+/book/%OUTDIR%

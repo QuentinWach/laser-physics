@@ -36,11 +36,27 @@ where now $\relq = \Re[\Lq]$ and $\imlq = \Im[\Lq]$. Therefore, choosing
 \begin{equation}
     \delta \omega_q \equiv -\frac{1}{2\, \tau_\lambda}\, \frac{\imlq}{\relq}
 \end{equation}
-should give $\dot{\phi}_q(t) \approx 0$ when $\dot{A}_q(t) = 0$. If $\omega_0 = \omega_{a b}$, then
+should give $\dot{\phi}_q(t) \approx 0$ when $\dot{A}_q(t) = 0$.
+
+In the general case, where
+\begin{equation} \label{eqn:mml_1d_omega_general}
+    \Lq \equiv \frac{\mathcal{A}}{\mathcal{B} - i\, \Omega}\, ,
+\end{equation}
+
+\begin{equation}
+    \delta \omega_q  = -\frac{1}{2\, \tau_\lambda}\, \frac{\Im\left[\mathcal{A}\, \mathcal{B}^\ast\right] + \Re\left[\mathcal{A}\right] \left(\Omega_q + \delta \omega_q\, \tau_\perp\right)}{\Re\left[\mathcal{A}\, \mathcal{B}^\ast\right] - \Im\left[\mathcal{A}\right] \left(\Omega_q + \delta \omega_q\, \tau_\perp\right)}\, ,    
+\end{equation}
+where $\Omega_q = 2\, q\, \pi\, \tau_\perp$.
+
+\begin{equation}
+    \delta \omega_q \approx -\frac{1}{2\, \tau_\lambda + \tau_\perp} \left\{ \frac{\Im\left[\mathcal{A}\, \mathcal{B}^\ast\right]}{\Re\left[\mathcal{A}\, \mathcal{B}^\ast\right]} + \frac{\left|\mathcal{A}\right|^2\, \Re\left[\mathcal{B}\right] \Omega_q}{\Re\left[\mathcal{A}\, \mathcal{B}^\ast\right]^2} + \frac{\left|\mathcal{A}\right|^2\, \Im\left[\mathcal{A}\right]\, \Re\left[\mathcal{B}\right]\, \Omega_q^2}{\Re\left[\mathcal{A}\, \mathcal{B}^\ast\right]^2 \left(\Re\left[\mathcal{A}\, \mathcal{B}^\ast\right] - \Im\left[\mathcal{A}\right]\, \Omega_q\right)} \right\}
+\end{equation}
+
+If $\omega_0 = \omega_{a b}$, then
 \begin{equation} \label{eqn:mml_1d_omega_q_def}
     \Omega_q \longrightarrow \Omega_q + \delta \omega_q\, \tau_\perp\, ,
 \end{equation}
-where $\Omega_q = 2\, q\, \pi\, \tau_\perp$, and we can solve for $\delta \omega_q$ to obtain
+and we can solve for $\delta \omega_q$ to obtain
 \begin{equation} \label{eqn:mml_1d_freq_pull_sol}
     \delta \omega_q \approx -\frac{r(\Omega_q)}{2\, \tau_\lambda + \tau_\perp\, r^\prime(\Omega_q)}\, ,
 \end{equation}
@@ -77,7 +93,7 @@ we obtain
     \delta \omega_q = -\frac{\tau_\perp}{2\, \tau_\lambda}\, \frac{2 q \pi}{1 + \tau_\perp/2\, \tau_\lambda}\, .
 \end{equation}
 In the more general case, where
-\begin{equation} \label{eqn:mml_1d_omega_q_general}
+\begin{equation}
     \Lq \equiv \frac{\mathcal{A}}{\mathcal{B} - i\, \Omega_q}\, ,
 \end{equation}
 we find
